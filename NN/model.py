@@ -78,6 +78,7 @@ class Model():
         '''
         # Avoid np overflow.
         drive = np.clip(drive, -500, 500)
+
         return 1 / (1 + np.exp(-drive))
 
     def sigma_prime(self, drive):
@@ -247,8 +248,8 @@ class Model():
                 losses.append(loss)
                 # inner.update(1)
 
-        plt.plot(losses)
-        plt.show()
+        # plt.plot(losses)
+        # plt.show()
 
             # outer.update(1)
             # print(i)
@@ -303,9 +304,10 @@ class Model():
             except ValueError:
                 pass
 
-        # results = sorted(list(zip(preds, ims)), key=lambda x: x[0], reverse=False)
-        # for i in results[:5]:
-        #     plt.imshow(i[1].reshape(28, 28))
-        #     plt.show()
+        results = sorted(list(zip(preds, ims)), key=lambda x: x[0], reverse=False)
+        sample = np.array([i[1] for i in results[:16]])
+        result = sample.reshape(4, 4, 28, 28).swapaxes(1, 2).reshape(28*4, 28*4)
+        plt.imshow(result)
+        plt.show()
 
         return sum(acc) / len(acc)
