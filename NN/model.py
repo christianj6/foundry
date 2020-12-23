@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 import random
+import matplotlib.pyplot as plt
 
 
 class Model():
@@ -209,6 +210,7 @@ class Model():
         data = list(zip(X, y))
         n = len(data)
         # Training loop.
+        losses = []
         # outer = tqdm(total=epochs, desc='Epoch', position=0)
         for i in range(epochs):
             # Shuffle.
@@ -242,7 +244,11 @@ class Model():
                 self.biases = new_biases
 
                 # losses.set_description_str(f'Loss: {loss}')
+                losses.append(loss)
                 # inner.update(1)
+
+        plt.plot(losses)
+        plt.show()
 
             # outer.update(1)
             # print(i)
@@ -275,17 +281,31 @@ class Model():
         batches = [data[k:k+self.batch_size] \
                     for k in range(0, n, self.batch_size)]
         acc = []
+
+        preds = []
+        ims = []
+
         for b in batches:
-            # Unzip the batch.
-            batch, labels = zip(*b)
-            # Get activations and drives.
-            activations, _ = self.forward(batch)
-            # Output
-            for i, item in enumerate(batch):
-                pred = np.argmax(activations[-1][i])
-                if np.argmax(labels[i]) == pred:
-                    acc.append(1)
-                else:
-                    acc.append(0)
+            try:
+                # Unzip the batch.
+                batch, labels = zip(*b)
+                # Get activations and drives.
+                activations, _ = self.forward(batch)
+                # Output
+                for i, item in enumerate(batch):
+                    preds.append(np.max(activations[-1][i]))
+                    ims.append(item)
+                    pred = np.argmax(activations[-1][i])
+                    if np.argmax(labels[i]) == pred:
+                        acc.append(1)
+                    else:
+                        acc.append(0)
+            except ValueError:
+                pass
+
+        # results = sorted(list(zip(preds, ims)), key=lambda x: x[0], reverse=False)
+        # for i in results[:5]:
+        #     plt.imshow(i[1].reshape(28, 28))
+        #     plt.show()
 
         return sum(acc) / len(acc)
