@@ -212,7 +212,7 @@ class Model():
         # Training loop.
         losses = []
         # outer = tqdm(total=epochs, desc='Epoch', position=0)
-        for i in range(epochs):
+        for i in tqdm(range(epochs)):
             # Shuffle.
             random.shuffle(data)
             # Get batches.
@@ -220,7 +220,7 @@ class Model():
                         for k in range(0, n, batch_size)]
             # inner = tqdm(total=len(batches), desc='Batch', position=1)
             # losses = tqdm(total=0, position=2, bar_format='{desc}')
-            for b in tqdm(batches):
+            for b in batches:
                 # Unzip the batch.
                 batch, labels = zip(*b)
                 # Get activations and drives.
