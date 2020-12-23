@@ -75,6 +75,8 @@ class Model():
             activation : np.array
                 Activation values.
         '''
+        # Avoid np overflow.
+        drive = np.clip(drive, -500, 500)
         return 1 / (1 + np.exp(-drive))
 
     def sigma_prime(self, drive):
@@ -214,9 +216,9 @@ class Model():
             # Get batches.
             batches = [data[k:k+batch_size] \
                         for k in range(0, n, batch_size)]
-            inner = tqdm(total=len(batches), desc='Batch', position=1)
-            losses = tqdm(total=0, position=2, bar_format='{desc}')
-            for b in batches:
+            # inner = tqdm(total=len(batches), desc='Batch', position=1)
+            # losses = tqdm(total=0, position=2, bar_format='{desc}')
+            for b in tqdm(batches):
                 # Unzip the batch.
                 batch, labels = zip(*b)
                 # Get activations and drives.
@@ -239,10 +241,11 @@ class Model():
                 self.weights = new_weights
                 self.biases = new_biases
 
-                losses.set_description_str(f'Loss: {loss}')
-                inner.update(1)
+                # losses.set_description_str(f'Loss: {loss}')
+                # inner.update(1)
 
             # outer.update(1)
+            # print(i)
 
     def eval(self, x, y):
         '''

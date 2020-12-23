@@ -4,8 +4,16 @@ from model import Model
 
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
-nn = Model([100])
-nn.fit(x_train, y_train, epochs=5, batch_size=10, lr=0.3)
+nn = Model([30])
+nn.fit(x_train, y_train, epochs=5, batch_size=1, lr=0.03)
+print()
+print(nn.eval(x_test, y_test))
+nn = Model([30])
+nn.fit(x_train, y_train, epochs=5, batch_size=1, lr=0.03)
+print()
+print(nn.eval(x_test, y_test))
+nn = Model([30])
+nn.fit(x_train, y_train, epochs=5, batch_size=1, lr=0.03)
 print()
 print(nn.eval(x_test, y_test))
 
