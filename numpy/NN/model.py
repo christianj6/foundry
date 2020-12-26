@@ -127,19 +127,12 @@ class Model():
         cost_matrix = activations[-1] - labels
         # Get avg loss.
         loss = np.average(cost_matrix)
-
         # Flip the lists around so we can easily walk back.
         activations_reversed = [a for a in activations[::-1]]
         drives_reversed = [d for d in drives[::-1]]
         weights_reversed = [w for w in self.weights[::-1]]
-
-        # for i in range(len(self.weights)):
-        #     print(self.weights[i].shape)
-        # print()
-
         # Get delta for each layer.
         for i, d in enumerate(drives_reversed):
-            # print(i)
             if i == 0:
                 # Penultimate layer. Instantiate delta.
                 delta = cost_matrix * self.sigma_prime(d)
@@ -148,19 +141,11 @@ class Model():
                 # Other layers, infer delta via backprop.
                 delta = np.dot(delta, weights_reversed[i-1].T) * self.sigma_prime(d)
 
-            # print(delta.shape)
-
             db = delta
-            # print(activations[-i+2])
-            # print(activations_reversed[i].T.shape)
-            # print('--')
             dw = np.dot(activations_reversed[i+1].T, delta)
-            # print(dw.shape)
             # Apply the delta to the update matrix.
             delta_w.append(dw)
             delta_b.append(db)
-
-        # exit()
 
         return reversed(delta_w), reversed(delta_b), loss
 
@@ -212,15 +197,12 @@ class Model():
         n = len(data)
         # Training loop.
         losses = []
-        # outer = tqdm(total=epochs, desc='Epoch', position=0)
         for i in tqdm(range(epochs)):
             # Shuffle.
             random.shuffle(data)
             # Get batches.
             batches = [data[k:k+batch_size] \
                         for k in range(0, n, batch_size)]
-            # inner = tqdm(total=len(batches), desc='Batch', position=1)
-            # losses = tqdm(total=0, position=2, bar_format='{desc}')
             for b in batches:
                 # Unzip the batch.
                 batch, labels = zip(*b)
@@ -228,9 +210,6 @@ class Model():
                 activations, drives = self.forward(batch)
                 # Get deltas.
                 delta_w, delta_b, loss = self.back(activations, drives, labels)
-                # for j, item in enumerate(delta_b):
-                #     item.shape
-                    # print(self.weights[j].shape)
                 # Apply weight updates.
                 new_weights = []
                 for delta, w in zip(delta_w, self.weights):
@@ -243,16 +222,8 @@ class Model():
 
                 self.weights = new_weights
                 self.biases = new_biases
-
-                # losses.set_description_str(f'Loss: {loss}')
+                # Store loss info.
                 losses.append(loss)
-                # inner.update(1)
-
-        # plt.plot(losses)
-        # plt.show()
-
-            # outer.update(1)
-            # print(i)
 
     def eval(self, x, y):
         '''
@@ -282,10 +253,9 @@ class Model():
         batches = [data[k:k+self.batch_size] \
                     for k in range(0, n, self.batch_size)]
         acc = []
-
+        # Store info on the predictions.
         preds = []
         ims = []
-
         for b in batches:
             try:
                 # Unzip the batch.
@@ -301,9 +271,11 @@ class Model():
                         acc.append(1)
                     else:
                         acc.append(0)
+
             except ValueError:
                 pass
 
+        # Visualize samples with a low confidence.
         results = sorted(list(zip(preds, ims)), key=lambda x: x[0], reverse=False)
         sample = np.array([i[1] for i in results[:16]])
         result = sample.reshape(4, 4, 28, 28).swapaxes(1, 2).reshape(28*4, 28*4)
