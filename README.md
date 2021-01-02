@@ -1,12 +1,21 @@
 ### Foundry
 
-Practical study of various machine learning algorithms via implementation
-from basic components. I aim to use, maximally, core Python libraries and NumPy.
+Practical study of various technologies and machine
+learning algorithms. This repository was originally
+intended as a personal archive but may be interpreted
+as a set of tutorials.
 
 ***
 
-##### NN
-MNIST feed-forward network classifier using NumPy.
+#### Structure
+
+##### Numpy
+Machine learning algorithms built using
+Numpy.
+
+##### Azure
+Tutorials for application development with
+Microsoft Azure.
 
 ***
 
