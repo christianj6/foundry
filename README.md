@@ -10,8 +10,7 @@ as a set of tutorials.
 #### Structure
 
 ##### Numpy
-Machine learning algorithms built using
-Numpy.
+Machine learning algorithms built using Numpy.
 
 ##### Azure
 Tutorials for application development with
