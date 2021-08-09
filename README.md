@@ -1,9 +1,7 @@
 ### Foundry
 
 Practical study of various technologies and machine
-learning algorithms. This repository was originally
-intended as a personal archive but may be interpreted
-as a set of tutorials.
+learning algorithms.
 
 ***
 
