@@ -12,7 +12,7 @@ class AffinityPropagation:
     def __init__(
         self,
         preference=None,
-        damping=0.5,
+        damping=0.9,
         max_iter=1000,
         plateau=50,
     ):
@@ -101,8 +101,8 @@ class AffinityPropagation:
         # Build the similarity matrix.
         self.similarity_ = self._get_similarity_matrix(x)
         self.availability_, self.responsibility_ = (
-            np.array(self.similarity_),
-            np.array(self.similarity_),
+            np.zeros(self.similarity_.shape),
+            np.zeros(self.similarity_.shape),
         )
         # Iteratively update values until convergence.
         ls = [] + list(range(self.plateau))
