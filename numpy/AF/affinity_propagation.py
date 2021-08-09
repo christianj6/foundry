@@ -46,7 +46,7 @@ class AffinityPropagation:
     def fit(self, x: np.array):
         def _update_r():
             # Get summation values for similarity and responsibility.
-            values = self.similarity_ + self.responsibility_
+            values = self.similarity_ + self.availability_
             rows = np.arange(x.shape[0])
             # Fill diagonal with arbitrary min values.
             np.fill_diagonal(values, -np.inf)
