@@ -10,9 +10,5 @@ learning algorithms.
 ##### Numpy
 Machine learning algorithms built using Numpy.
 
-##### Azure
-Tutorials for application development with
-Microsoft Azure.
-
 ***
 
