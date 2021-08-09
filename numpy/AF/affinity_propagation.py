@@ -27,13 +27,14 @@ class AffinityPropagation:
         self.exemplars_ = None
 
     def _get_similarity_matrix(self, x: np.array) -> np.array:
-        def _cosine(a, b):
-            return (a @ b.T) / (np.linalg.norm(a) * np.linalg.norm(b))
+        def _euclidean(a, b):
+            # todo: Replace with cosine similarity.
+            return -((a - b) ** 2).sum()
 
         S = np.zeros((x.shape[0], x.shape[0]))
         for i in range(x.shape[0]):
             for j in range(x.shape[0]):
-                S[i, j] = _cosine(x[i], x[j])
+                S[i, j] = _euclidean(x[i], x[j])
 
         # Set preference value.
         if self.preference is None:
