@@ -5,10 +5,10 @@ learning algorithms.
 
 ***
 
-#### Structure
+#### Content
 
-##### Numpy
-Machine learning algorithms built using Numpy.
+- numpy
+  - Machine learning algorithms built using Numpy.
 
 ***
 
