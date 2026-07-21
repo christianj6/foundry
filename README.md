@@ -1,16 +1,18 @@
 ### Foundry
 
-Practical study of Python tools and machine
-learning algorithms.
+This repository includes a mish-mash of practical coding experiments and purpose-built packages. It is intended as an archive of early Python programming and machine learning experiences.
 
 ***
 
 #### Content
 
-- asyncio
-  - Asynchronous programming demonstrations.
-- numpy
-  - Machine learning algorithms built using Numpy.
+- packages
+    - fast-keywords
+- experiments
+    - asyncio
+      - Asynchronous programming demonstrations.
+    - numpy
+      - Machine learning algorithms built using Numpy.
 
 ***
 
