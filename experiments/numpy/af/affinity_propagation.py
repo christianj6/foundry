@@ -46,6 +46,15 @@ class AffinityPropagation:
 
     def fit(self, x: np.array):
         def _update_r():
+            """
+            Update the responsibility matrix R.
+
+            R(i, k) reflects how well candidate k serves as an exemplar for
+            point i relative to all other candidates. For each point i, the
+            update subtracts the maximum summed (similarity + availability)
+            value across competing candidates, damping the result against the
+            previous iteration to aid convergence.
+            """
             # Get summation values for similarity and responsibility.
             values = self.similarity_ + self.availability_
             rows = np.arange(x.shape[0])
@@ -69,6 +78,16 @@ class AffinityPropagation:
             )
 
         def _update_a():
+            """
+            Update the availability matrix A.
+
+            A(i, k) reflects how appropriate it is for point i to choose k
+            as its exemplar, based on the accumulated evidence from other
+            points that also prefer k. Off-diagonal values are clipped to
+            zero (negative availability is ignored); diagonal values
+            represent the self-reinforcement of each candidate exemplar.
+            Both are damped against the previous iteration.
+            """
             # Diagonal matrix to exclude identical indices from the sum.
             k = np.arange(x.shape[0])
             a = np.array(self.responsibility_)
@@ -94,6 +113,13 @@ class AffinityPropagation:
             )
 
         def _update_exemplars():
+            """
+            Derive cluster assignments from the current R and A matrices.
+
+            Each point is assigned to the candidate k that maximises
+            A(i, k) + R(i, k). Points that are their own maximum are
+            identified as exemplars (cluster centres).
+            """
             s = self.availability_ + self.responsibility_
             # Choose each point's max value as the label.
             self.labels_ = np.argmax(s, axis=1)
