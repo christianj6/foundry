@@ -7,7 +7,7 @@ This repository includes a mish-mash of practical coding experiments and purpose
 #### Content
 
 - packages
-    - fast-keywords
+    - fast-keyword-identification
 - experiments
     - asyncio
       - Asynchronous programming demonstrations.
