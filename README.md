@@ -1,6 +1,6 @@
 ### Foundry
 
-An archive of early Python programming and machine learning experiences — ranging from async I/O benchmarks and from-scratch ML algorithms to a published fuzzy-search package and a minimal language model.
+An archive of early Python programming and machine learning experiences — ranging from async I/O benchmarks and from-scratch ML algorithms to a published fuzzy-search package.
 
 ***
 
