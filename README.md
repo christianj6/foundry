@@ -1,18 +1,18 @@
-### Foundry
+# Foundry
 
 An archive of early Python programming and machine learning experiences — ranging from async I/O benchmarks and from-scratch ML algorithms to a published fuzzy-search package and a minimal language model.
 
-***
+---
 
-#### Packages
+## Packages
 
 | Package | Description |
 |---|---|
 | [fast-keyword-identification](packages/fast-keyword-identification/) | Fuzzy keyword search over large document collections using character n-gram TF-IDF vectors and approximate cosine similarity. Ships with a CLI, an optional LinearSVC classification filter, and a demo corpus of airline tweets. |
 
-***
+---
 
-#### Experiments
+## Experiments
 
 | Experiment | Description |
 |---|---|
